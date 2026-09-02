@@ -1,150 +1,82 @@
-# Akademik Görev Takipçisi
+# Academic Task Tracker
 
-Akademik Görev Takipçisi, ders odaklı görevlerinizi tek yerden yönetmek için geliştirilmiş bir full-stack uygulamadır.
-Ön yüz React + Vite, arka yüz ise Node.js + Express + MongoDB (Mongoose) ile geliştirilmiştir.
+Academic Task Tracker is a student project for organizing course assignments, projects, quizzes, and exams. It contains a React interface and a Node.js API backed by MongoDB.
 
-## Özellikler
+> Learning status: This project was created with AI assistance and is still being reviewed as a learning project. Technologies present in the repository are not presented as confirmed personal skills until the project owner can explain and modify the code independently.
 
-- Görev ekleme, güncelleme ve silme (CRUD)
-- Durum takibi: `pending`, `in-progress`, `done`
-- Öncelik takibi: `low`, `medium`, `high`, `urgent`
-- Görev tipi: `Assignment`, `Project`, `Quiz`, `Exam`
-- Filtreleme: durum, öncelik, ders, görev tipi
-- Arama: başlık, açıklama veya ders adına göre
-- Sıralama: oluşturma tarihi, teslim tarihi, öncelik
-- Dashboard özet kartları (toplam, bugün teslim, gecikmiş vb.)
-- Yaklaşan teslim tarihleri paneli
-- Tarayıcı `localStorage` üzerinde hızlı çalışma notları
+## Current features
 
-## Teknoloji Yığını
+- Create, read, update, and delete academic tasks
+- Track task status, priority, course, type, and due date
+- Filter, search, and sort tasks
+- Display summary cards and upcoming deadlines
+- Store short study notes in the browser's local storage
+- Provide a basic API health endpoint
 
-### Frontend
-
-- React 19
-- Vite
-- Axios
-- Lucide React
-
-### Backend
-
-- Node.js
-- Express 5
-- MongoDB + Mongoose
-- dotenv
-- cors
-
-## Proje Yapısı
+## Project structure
 
 ```text
 academic-task-tracker/
-  client/   # React + Vite arayüzü
-  server/   # Express API ve MongoDB bağlantısı
+  client/   React and Vite user interface
+  server/   Express API and MongoDB connection
 ```
 
-## Gereksinimler
+## Technologies used by the project
 
-- Node.js (18+ önerilir)
+- Frontend: React, Vite, Axios, Lucide React
+- Backend: Node.js, Express, MongoDB, Mongoose
+
+This list describes the repository. It is not a claim of mastery.
+
+## Local setup
+
+Requirements:
+
+- Node.js 18 or newer
 - npm
-- MongoDB (lokal veya Atlas)
+- a local MongoDB instance or MongoDB Atlas connection
 
-## Kurulum
+Install the two applications separately:
 
 ```bash
-# 1) Proje klasörüne girin
-cd academic-task-tracker
-
-# 2) Backend bağımlılıkları
-cd server
+cd academic-task-tracker/server
 npm install
 
-# 3) Frontend bağımlılıkları
 cd ../client
 npm install
 ```
 
-## Ortam Değişkenleri
+Copy `server/.env.example` to `server/.env`, then change the values for your local environment. The `.env` file must not be committed.
 
-### Backend (`server/.env`)
+The optional `client/.env.example` documents the frontend API address.
 
-```env
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/academic-task-tracker
-NODE_ENV=development
-```
-
-### Frontend (opsiyonel, `client/.env`)
-
-Varsayılan API adresi: `http://localhost:3000/api`
-
-Farklı bir adres kullanacaksanız:
-
-```env
-VITE_API_BASE_URL=http://localhost:3000/api
-```
-
-## Uygulamayı Çalıştırma
-
-İki ayrı terminal açın:
+Run the backend and frontend in separate terminals:
 
 ```bash
-# Terminal 1 - Backend
 cd academic-task-tracker/server
 npm run dev
 ```
 
 ```bash
-# Terminal 2 - Frontend
 cd academic-task-tracker/client
 npm run dev
 ```
 
-Varsayılan adresler:
+Default local addresses:
 
 - Frontend: `http://localhost:5173`
-- Backend API: `http://localhost:3000/api`
+- API: `http://localhost:3000/api`
 
-## API Uçları
-
-- `GET /api/health` -> Servis sağlık kontrolü
-- `GET /api/tasks` -> Görevleri listele (filtre/sıralama destekler)
-- `POST /api/tasks` -> Yeni görev oluştur
-- `PUT /api/tasks/:id` -> Görev güncelle
-- `DELETE /api/tasks/:id` -> Görev sil
-
-`GET /api/tasks` için desteklenen query parametreleri:
-
-- `status`
-- `priority`
-- `type`
-- `course`
-- `search`
-- `sort` (`-createdAt`, `createdAt`, `dueDate`, `-dueDate`, `priority_desc`, `priority_asc`)
-
-## Veri Modeli (Task)
-
-- `title` (zorunlu, 3-100 karakter)
-- `description` (opsiyonel)
-- `course` (zorunlu)
-- `type` (`Assignment`, `Project`, `Quiz`, `Exam`)
-- `status` (`pending`, `in-progress`, `done`)
-- `priority` (`low`, `medium`, `high`, `urgent`)
-- `dueDate` (opsiyonel, geçmiş tarih olamaz)
-
-## Build ve Production
+## Available checks
 
 ```bash
-# Frontend build
-cd client
+cd academic-task-tracker/client
+npm run lint
 npm run build
-
-# Frontend preview
-npm run preview
-
-# Backend production start
-cd ../server
-npm start
 ```
 
-## Not
+The repository currently has no automated test suite. Backend files can be syntax-checked with Node.js, but database behavior still needs a running MongoDB instance for integration testing.
 
-Bu repository'de şu anda ayrı bir lisans dosyası bulunmamaktadır. GitHub'a eklemeden önce uygun bir `LICENSE` dosyası eklemeniz önerilir.
+## Repository hygiene
+
+Dependency folders, `.env` files, logs, and build output are ignored. Previously committed copies may remain in Git history because this cleanup does not rewrite history.
